@@ -77,37 +77,49 @@ switch(difficulty){
 }
 console.log(max);
 
+i = 0;
+
+// GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
+arrayPc[i] = random(max, 1);
+console.log("Pos", (i + 1), ":", arrayPc[i]);
+
+for(i = 1; i < 16; i++){
+
+  numero = random(max, 1);
+
+  controlloDuplicatoPc = ricerca(arrayPc, numero);
+
+  if(controlloDuplicatoPc){
+    i = i - 1;
+  } else {
+    arrayPc[i] = numero;
+  }
+  console.log("Pos", (i + 1), ":", arrayPc[i]);
+
+}
+console.log("Array Bombe: ", arrayPc);
 // CREAZIONE SCACCHIERA
 for(i = 0; i < max - 1; i++){
-  document.getElementById("chessmate").innerHTML += "<div class='chessbox'>" + (i + 1) + "</div>";
+  trovato = false;
+  j = 0;
+  while(j < arrayPc.length && trovato == false){
+    if(arrayPc[j] == i+1){
+      trovato = true;
+      document.getElementById("chessmate").innerHTML += "<div class='chessbox bomb'>" + (i + 1) + "</div>";
+      j++;
+    } else{
+      j++;
+    }
+  }
+  if(trovato == false){
+    document.getElementById("chessmate").innerHTML += "<div class='chessbox'>" + (i + 1) + "</div>";
+  }
+
 }
 
 // PREMERE GIOCA PER GIOCARE
 document.getElementById("play").addEventListener("click",
 function(){
-
-  i = 0;
-
-  // GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
-  arrayPc[i] = random(max, 1);
-  console.log("Pos", (i + 1), ":", arrayPc[i]);
-
-  for(i = 1; i < 16; i++){
-
-    numero = random(max, 1);
-
-    controlloDuplicatoPc = ricerca(arrayPc, numero);
-
-    if(controlloDuplicatoPc){
-      i = i - 1;
-    } else {
-      arrayPc[i] = numero;
-    }
-    console.log("Pos", (i + 1), ":", arrayPc[i]);
-
-  }
-  console.log("Array Bombe: ", arrayPc);
-
 
   // UTENTE
   i = 0;
@@ -156,7 +168,12 @@ function(){
     }
 
   }
+var x = document.getElementsByClassName("chessbox bomb");
+for(i = 0; i < arrayPc.length; i++){
+  x[i].style.background = "red";
+}
 
+document.getElementById("play").disabled = true;
 }
 );
 
