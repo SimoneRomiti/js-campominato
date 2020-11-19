@@ -48,6 +48,7 @@ var numero;
 var j;
 var controlloDuplicatoPc;
 var controlloDuplicatoUtente = false;
+var numeroUtente;
 var esitoUtente;
 var difficulty;
 var max;
@@ -61,14 +62,27 @@ while(isNaN(difficulty) || difficulty != 0 && difficulty != 1 && difficulty != 2
 
 }
 
-if(difficulty == 0){
+switch(difficulty){
+  case 0:
   max = 101;
-} else if(difficulty == 1){
+    break;
+  case 1:
   max = 81;
-} else{
+    break;
+  case 2:
   max = 51;
+    break;
+  default:
+
 }
 console.log(max);
+
+// CREAZIONE SCACCHIERA
+for(i = 0; i < max - 1; i++){
+  document.getElementById("chessmate").innerHTML += "<div class='chessbox'>" + (i + 1) + "</div>";
+}
+
+i = 0;
 
 // GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
 arrayPc[i] = random(max, 1);
@@ -97,6 +111,7 @@ j = 0;
 
 // CONTROLLO PRIMO NUMERO UTENTE SE PRESENTE IN ARRAY BOMBE PC
 arrayUtente[i] = parseInt(prompt("Inserisci un numero"));
+
 esitoUtente = ricerca(arrayPc, arrayUtente[i]);
 console.log(esitoUtente);
 
@@ -137,3 +152,20 @@ if(esitoUtente){
   }
 
 }
+
+
+// document.getElementById("play").addEventListener("click",
+// function(){
+//   arrayUtente[i] = document.getElementById("input-number").value;
+//   console.log("numero utente", arrayUtente[i]);
+//
+//   esitoUtente = ricerca(arrayPc, arrayUtente[i]);
+//   console.log(esitoUtente);
+//
+//   if(esitoUtente){
+//     alert("Hai Perso! Punteggio:" + " " + i);
+//   } else {
+//     i = i + 1;
+//   }
+// }
+// );
