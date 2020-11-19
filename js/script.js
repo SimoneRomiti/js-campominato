@@ -33,6 +33,13 @@ function ricerca(array, num){
   return trovato;
 }
 
+// FUNZIONE NUMERO RANDOM
+function random(numMax, numMin){
+  numCas = Math.floor(Math.random() * (numMax - numMin) ) + numMin;
+  return numCas;
+}
+
+
 // VARIABILI
 var arrayPc = [];
 var arrayUtente = [];
@@ -42,14 +49,34 @@ var j;
 var controlloDuplicatoPc;
 var controlloDuplicatoUtente = false;
 var esitoUtente;
+var difficulty;
+var max;
+
+
+difficulty = parseInt(prompt("Seleziona la difficoltà: 0, 1 o 2"));
+console.log(difficulty);
+while(isNaN(difficulty) || difficulty != 0 && difficulty != 1 && difficulty != 2){
+  alert("Devi inserire un numero che sia 0, 1 o 2");
+  difficulty = parseInt(prompt("Selezionare la difficoltà: 0, 1 o 2"));
+
+}
+
+if(difficulty == 0){
+  max = 101;
+} else if(difficulty == 1){
+  max = 81;
+} else{
+  max = 51;
+}
+console.log(max);
 
 // GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
-arrayPc[i] = Math.floor(Math.random() * (101 - 1) ) + 1;
+arrayPc[i] = random(max, 1);
 console.log("Pos", (i + 1), ":", arrayPc[i]);
 
 for(i = 1; i < 16; i++){
 
-  numero = Math.floor(Math.random() * (101 - 1) ) + 1;
+  numero = random(max, 1);
 
   controlloDuplicatoPc = ricerca(arrayPc, numero);
 
