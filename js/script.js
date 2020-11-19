@@ -98,7 +98,8 @@ for(i = 1; i < 16; i++){
 
 }
 console.log("Array Bombe: ", arrayPc);
-// CREAZIONE SCACCHIERA
+
+// CREAZIONE SCACCHIERA E AGGIUNTA CLASSE PER LE BOMBE
 for(i = 0; i < max - 1; i++){
   trovato = false;
   j = 0;
@@ -123,7 +124,6 @@ function(){
 
   // UTENTE
   i = 0;
-  j = 0;
 
   // CONTROLLO PRIMO NUMERO UTENTE SE PRESENTE IN ARRAY BOMBE PC
   arrayUtente[i] = parseInt(prompt("Inserisci un numero"));
