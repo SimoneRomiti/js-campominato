@@ -82,76 +82,85 @@ for(i = 0; i < max - 1; i++){
   document.getElementById("chessmate").innerHTML += "<div class='chessbox'>" + (i + 1) + "</div>";
 }
 
-i = 0;
+// PREMERE GIOCA PER GIOCARE
+document.getElementById("play").addEventListener("click",
+function(){
 
-// GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
-arrayPc[i] = random(max, 1);
-console.log("Pos", (i + 1), ":", arrayPc[i]);
+  i = 0;
 
-for(i = 1; i < 16; i++){
-
-  numero = random(max, 1);
-
-  controlloDuplicatoPc = ricerca(arrayPc, numero);
-
-  if(controlloDuplicatoPc){
-    i = i - 1;
-  } else {
-    arrayPc[i] = numero;
-  }
+  // GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
+  arrayPc[i] = random(max, 1);
   console.log("Pos", (i + 1), ":", arrayPc[i]);
 
-}
-console.log("Array Bombe: ", arrayPc);
+  for(i = 1; i < 16; i++){
 
+    numero = random(max, 1);
 
-// UTENTE
-i = 0;
-j = 0;
+    controlloDuplicatoPc = ricerca(arrayPc, numero);
 
-// CONTROLLO PRIMO NUMERO UTENTE SE PRESENTE IN ARRAY BOMBE PC
-arrayUtente[i] = parseInt(prompt("Inserisci un numero"));
-
-esitoUtente = ricerca(arrayPc, arrayUtente[i]);
-console.log(esitoUtente);
-
-if(esitoUtente){
-  alert("Hai Perso! Punteggio:" + " " + i);
-} else {
-  i = i + 1;
-  // CONTROLLO SU TUTTI GLI ALTRI NUMERI INSERITI SIA SE PRESENTI SU ARRAY BOMBE PC CHE SE DUPLICATI IN ARRAY UTENTE
-  while(i < 5 && esitoUtente == false && controlloDuplicatoUtente == false){
-
-    numeroUtente = parseInt(prompt("Inserisci un numero"));
-    // CONTROLLO DUPLICATO ARRAY UTENTE
-    controlloDuplicatoUtente = ricerca(arrayUtente, numeroUtente);
-    console.log("Controllo utente", controlloDuplicatoUtente);
-
-    if(controlloDuplicatoUtente){
-      alert("Non puoi inserire un numero già inserito!");
-      controlloDuplicatoUtente = false;
+    if(controlloDuplicatoPc){
       i = i - 1;
-      i++;
-    } else{
+    } else {
+      arrayPc[i] = numero;
+    }
+    console.log("Pos", (i + 1), ":", arrayPc[i]);
 
-      arrayUtente[i] = numeroUtente;
-      // CONTROLLO SE PRESENTE IN ARRAY BOMBE PC
-      esitoUtente = ricerca(arrayPc, arrayUtente[i]);
-      if(esitoUtente){
-        alert("Hai perso! Punteggio" + " " + i);
+  }
+  console.log("Array Bombe: ", arrayPc);
+
+
+  // UTENTE
+  i = 0;
+  j = 0;
+
+  // CONTROLLO PRIMO NUMERO UTENTE SE PRESENTE IN ARRAY BOMBE PC
+  arrayUtente[i] = parseInt(prompt("Inserisci un numero"));
+
+  esitoUtente = ricerca(arrayPc, arrayUtente[i]);
+  console.log(esitoUtente);
+
+  if(esitoUtente){
+    alert("Hai Perso! Punteggio:" + " " + i);
+  } else {
+    i = i + 1;
+    // CONTROLLO SU TUTTI GLI ALTRI NUMERI INSERITI SIA SE PRESENTI SU ARRAY BOMBE PC CHE SE DUPLICATI IN ARRAY UTENTE
+    while(i < 5 && esitoUtente == false && controlloDuplicatoUtente == false){
+
+      numeroUtente = parseInt(prompt("Inserisci un numero"));
+      // CONTROLLO DUPLICATO ARRAY UTENTE
+      controlloDuplicatoUtente = ricerca(arrayUtente, numeroUtente);
+      console.log("Controllo utente", controlloDuplicatoUtente);
+
+      if(controlloDuplicatoUtente){
+        alert("Non puoi inserire un numero già inserito!");
+        controlloDuplicatoUtente = false;
+        i = i - 1;
         i++;
       } else{
 
-        i++;
+        arrayUtente[i] = numeroUtente;
+        // CONTROLLO SE PRESENTE IN ARRAY BOMBE PC
+        esitoUtente = ricerca(arrayPc, arrayUtente[i]);
+        if(esitoUtente){
+          alert("Hai perso! Punteggio" + " " + i);
+          i++;
+        } else{
+
+          i++;
+        }
       }
+
+    }
+    if(i >= 5 && esitoUtente == false){
+      alert("Hai vinto! Punteggio massimo:" + " " + i);
     }
 
   }
-  if(i >= 5 && esitoUtente == false){
-    alert("Hai vinto! Punteggio massimo:" + " " + i);
-  }
 
 }
+);
+
+
 
 
 // document.getElementById("play").addEventListener("click",
