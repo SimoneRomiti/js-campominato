@@ -119,6 +119,11 @@ function(){
   // UTENTE INSERIMENTO PRIMO NUMERO
   i = 0;
   numeroUtente = parseInt(prompt("Inserisci un numero"));
+  while(isNaN(numeroUtente)){
+    alert("Numero non valido");
+    numeroUtente = parseInt(prompt("Inserisci un numero"));
+  }
+
   arrayUtente[i] = numeroUtente;
   // CONTROLLO SE IL PRIMO NUMERO E' PRESENTE IN ARRAY BOMBE PC
   esitoUtente = ricerca(arrayPc, arrayUtente[i]);
@@ -131,6 +136,12 @@ function(){
     while(i < (max - 1 - 16) && esitoUtente == false && controlloDuplicatoUtente == false){
 
       numeroUtente = parseInt(prompt("Ottimo, la cella numero " + arrayUtente[i - 1] + " non contiene bombe!\nPunteggio attuale: " + i + "/" + (max - 1 - 16) +"\nInserisci il prossimo numero"));
+
+      while(isNaN(numeroUtente)){
+        alert("Numero non valido");
+        numeroUtente = parseInt(prompt("Inserisci un numero"));
+      }
+
       // CONTROLLO DUPLICATO ARRAY UTENTE
       controlloDuplicatoUtente = ricerca(arrayUtente, numeroUtente);
       console.log("Controllo utente", controlloDuplicatoUtente);
