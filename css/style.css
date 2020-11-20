@@ -16,7 +16,7 @@ h1{
   margin-top: 30px;
 }
 
-#play{
+#play, #reset{
   display: block;
   margin: 20px auto;
   padding: 5px 10px;
