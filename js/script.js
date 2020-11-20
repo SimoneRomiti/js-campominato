@@ -173,6 +173,7 @@ function(){
 if(i >= 5 && esitoUtente == false){
   alert("Hai vinto!\nPunteggio massimo" + " " + i + "/" + (max - 1 - 16));
 }
+
 console.log("Array utente", arrayUtente);
 var x = document.getElementsByClassName("chessbox bomb");
 for(i = 0; i < arrayPc.length; i++){
@@ -180,13 +181,15 @@ for(i = 0; i < arrayPc.length; i++){
   x[i].style.animationName = "bombs"
 }
 var y = document.getElementsByClassName("chessbox");
-for(i = 0; i < arrayUtente.length; i++){
-  check = ricerca(arrayUtente, y[i]);
-  console.log("check", check);
-  if(check){
+for(i = 0; i < max - 1; i++){
+  console.log("y", i, y[i].innerHTML);
+  check = ricerca(arrayUtente, y[i].innerHTML);
+
+  if(check && y[i].innerHTML != arrayUtente[arrayUtente.length - 1]){
     y[i].style.background = "green";
   }
 }
+
 
 document.getElementById("play").disabled = true;
 }
