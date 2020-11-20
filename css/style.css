@@ -42,9 +42,10 @@ h1{
   height: 50px;
   color: white;
   width: calc(100% / 10);
-  text-align: center;
-  line-height: 46px;
-  /* border: 1px solid #FE6107; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  word-break: break-all;
   border: 1px solid black;
   animation-duration: 2s;
   animation-fill-mode: forwards;
@@ -61,7 +62,7 @@ h1{
   }
 }
 
-@media screen and (max-width: 1250px) {
+@media screen and (max-width: 884px) {
   #chessmate{
     font-size: 12px;
   }

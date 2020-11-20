@@ -199,7 +199,7 @@ i = 0;
 while(y[i].innerHTML != arrayUtente[z]){
   i++;
 }
-y[i].innerHTML = "BOOOOOM";
+y[i].innerHTML = "BOOOM";
 
 document.getElementById("play").disabled = true;
 }
