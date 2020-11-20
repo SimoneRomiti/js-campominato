@@ -120,7 +120,7 @@ function(){
   // UTENTE INSERIMENTO PRIMO NUMERO
   i = 0;
   numeroUtente = parseInt(prompt("Inserisci un numero"));
-  while(isNaN(numeroUtente)){
+  while(isNaN(numeroUtente) || numeroUtente <= 0 || numeroUtente > max - 1){
     alert("Numero non valido");
     numeroUtente = parseInt(prompt("Inserisci un numero"));
   }
@@ -134,11 +134,11 @@ function(){
     i = i + 1;
 
     // INSERIMENTO E CONTROLLO SU TUTTI GLI ALTRI NUMERI INSERITI SIA SE PRESENTI SU ARRAY BOMBE PC CHE SE DUPLICATI IN ARRAY UTENTE
-    while(i < (max - 1 - 16) && esitoUtente == false && controlloDuplicatoUtente == false){
+    while(i < (max - 1 - 16) && esitoUtente == false){
 
       numeroUtente = parseInt(prompt("Ottimo, la cella numero " + arrayUtente[i - 1] + " non contiene bombe!\nPunteggio attuale: " + i + "/" + (max - 1 - 16) +"\nInserisci il prossimo numero"));
 
-      while(isNaN(numeroUtente)){
+      while(isNaN(numeroUtente) || numeroUtente <= 0 || numeroUtente > max - 1){
         alert("Numero non valido");
         numeroUtente = parseInt(prompt("Inserisci un numero"));
       }
@@ -149,7 +149,6 @@ function(){
 
       if(controlloDuplicatoUtente){
         alert("Non puoi inserire un numero già inserito!");
-        controlloDuplicatoUtente = false;
       } else{
 
         arrayUtente[i] = numeroUtente;
@@ -168,28 +167,39 @@ function(){
 
   }
 
-
-
-if(i >= 5 && esitoUtente == false){
+if(i = 5 && esitoUtente == false){
   alert("Hai vinto!\nPunteggio massimo" + " " + i + "/" + (max - 1 - 16));
 }
 
 console.log("Array utente", arrayUtente);
+
+
+// SALVO IN Y TUTTI I DIV DELLE CELLE E SCORRO CON UN CICLO PER TROVARE SOLO LE CELLE CHE CONTENGONO I NUMERI CONTENUTI IN ARRAY UTENTE PER METTERE COLORE VERDE ALLE CELLE SELEZIONATE DAL GIOCATORE
+var y = document.getElementsByClassName("chessbox");
+var z = arrayUtente.length - 1;
+for(i = 0; i < max - 1; i++){
+  console.log("y", i, y[i].innerHTML);
+  check = ricerca(arrayUtente, y[i].innerHTML);
+
+  if(check && y[i].innerHTML != arrayUtente[z]){
+    y[i].style.background = "green";
+    y[i].style.animationName = "bombs"
+  }
+}
+
+// SALVO IN X I DIV DOVE SONO CONTENUTE LE BOMBE PER METTERE COLORE ROSSO
 var x = document.getElementsByClassName("chessbox bomb");
 for(i = 0; i < arrayPc.length; i++){
   x[i].style.background = "red";
   x[i].style.animationName = "bombs"
 }
-var y = document.getElementsByClassName("chessbox");
-for(i = 0; i < max - 1; i++){
-  console.log("y", i, y[i].innerHTML);
-  check = ricerca(arrayUtente, y[i].innerHTML);
 
-  if(check && y[i].innerHTML != arrayUtente[arrayUtente.length - 1]){
-    y[i].style.background = "green";
-  }
+// SCORRO FINO A QUANDO IL CONTENUTO DI UN DIV E' UGUALE ALL'ULTIMO ELEMENTO DI ARRAY UTENTE PER TROVARE LA BOMBA ESPLOSA
+i = 0;
+while(y[i].innerHTML != arrayUtente[z]){
+  i++;
 }
-
+y[i].innerHTML = "BOOOOOM";
 
 document.getElementById("play").disabled = true;
 }
@@ -265,19 +275,3 @@ function(){
 document.getElementById("play").disabled = false;
 }
 );
-
-// document.getElementById("play").addEventListener("click",
-// function(){
-//   arrayUtente[i] = document.getElementById("input-number").value;
-//   console.log("numero utente", arrayUtente[i]);
-//
-//   esitoUtente = ricerca(arrayPc, arrayUtente[i]);
-//   console.log(esitoUtente);
-//
-//   if(esitoUtente){
-//     alert("Hai Perso! Punteggio:" + " " + i);
-//   } else {
-//     i = i + 1;
-//   }
-// }
-// );

@@ -46,12 +46,11 @@ h1{
   line-height: 46px;
   /* border: 1px solid #FE6107; */
   border: 1px solid black;
-}
-
-.chessbox.bomb{
   animation-duration: 2s;
   animation-fill-mode: forwards;
+  animation-delay: 0.2s;
 }
+
 
 @keyframes bombs {
   from{
