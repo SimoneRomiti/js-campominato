@@ -49,7 +49,7 @@ var j;
 var controlloDuplicatoPc;
 var controlloDuplicatoUtente = false;
 var numeroUtente;
-var esitoUtente;
+var esitoUtente = false;
 var difficulty;
 var max;
 
@@ -77,24 +77,20 @@ switch(difficulty){
 }
 console.log(max);
 
-i = 0;
 
 // GENERATORE ARRAY BOMBE PC SENZA DUPLICATI
-arrayPc[i] = random(max, 1);
-console.log("Pos", (i + 1), ":", arrayPc[i]);
-
-for(i = 1; i < 16; i++){
+i = 0;
+while(i < 16){
 
   numero = random(max, 1);
 
   controlloDuplicatoPc = ricerca(arrayPc, numero);
 
-  if(controlloDuplicatoPc){
-    i = i - 1;
-  } else {
+  if(controlloDuplicatoPc == false){
     arrayPc[i] = numero;
+    console.log("Posizione", i + 1, ":", arrayPc[i]);
+    i++;
   }
-  console.log("Pos", (i + 1), ":", arrayPc[i]);
 
 }
 console.log("Array Bombe: ", arrayPc);
@@ -125,49 +121,37 @@ function(){
   // UTENTE
   i = 0;
 
-  // CONTROLLO PRIMO NUMERO UTENTE SE PRESENTE IN ARRAY BOMBE PC
-  arrayUtente[i] = parseInt(prompt("Inserisci un numero"));
+  // CONTROLLO SU TUTTI I NUMERI INSERITI SIA SE PRESENTI SU ARRAY BOMBE PC CHE SE DUPLICATI IN ARRAY UTENTE
+  while(i < 5 && esitoUtente == false && controlloDuplicatoUtente == false){
 
-  esitoUtente = ricerca(arrayPc, arrayUtente[i]);
-  console.log(esitoUtente);
+    numeroUtente = parseInt(prompt("Inserisci un numero"));
+    // CONTROLLO DUPLICATO ARRAY UTENTE
+    controlloDuplicatoUtente = ricerca(arrayUtente, numeroUtente);
+    console.log("Controllo utente", controlloDuplicatoUtente);
 
-  if(esitoUtente){
-    alert("Hai Perso! Punteggio:" + " " + i);
-  } else {
-    i = i + 1;
-    // CONTROLLO SU TUTTI GLI ALTRI NUMERI INSERITI SIA SE PRESENTI SU ARRAY BOMBE PC CHE SE DUPLICATI IN ARRAY UTENTE
-    while(i < 5 && esitoUtente == false && controlloDuplicatoUtente == false){
+    if(controlloDuplicatoUtente){
+      alert("Non puoi inserire un numero già inserito!");
+      controlloDuplicatoUtente = false;
+    } else{
 
-      numeroUtente = parseInt(prompt("Inserisci un numero"));
-      // CONTROLLO DUPLICATO ARRAY UTENTE
-      controlloDuplicatoUtente = ricerca(arrayUtente, numeroUtente);
-      console.log("Controllo utente", controlloDuplicatoUtente);
-
-      if(controlloDuplicatoUtente){
-        alert("Non puoi inserire un numero già inserito!");
-        controlloDuplicatoUtente = false;
-        i = i - 1;
+      arrayUtente[i] = numeroUtente;
+      // CONTROLLO SE PRESENTE IN ARRAY BOMBE PC
+      esitoUtente = ricerca(arrayPc, arrayUtente[i]);
+      if(esitoUtente){
+        alert("Hai perso! Punteggio" + " " + i);
         i++;
       } else{
 
-        arrayUtente[i] = numeroUtente;
-        // CONTROLLO SE PRESENTE IN ARRAY BOMBE PC
-        esitoUtente = ricerca(arrayPc, arrayUtente[i]);
-        if(esitoUtente){
-          alert("Hai perso! Punteggio" + " " + i);
-          i++;
-        } else{
-
-          i++;
-        }
+        i++;
       }
-
-    }
-    if(i >= 5 && esitoUtente == false){
-      alert("Hai vinto! Punteggio massimo:" + " " + i);
     }
 
   }
+
+if(i >= 5 && esitoUtente == false){
+  alert("Hai vinto! Punteggio massimo:" + " " + i);
+}
+
 var x = document.getElementsByClassName("chessbox bomb");
 for(i = 0; i < arrayPc.length; i++){
   x[i].style.background = "red";
